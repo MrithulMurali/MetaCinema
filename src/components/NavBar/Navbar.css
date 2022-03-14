@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: black;
+  color: white;
+}
+.navbar h2 {
+  margin-left: 20px;
+  padding: 5px;
+}
+.nav-btn-container {
+  margin-right: 20px;
+  padding: 5px;
+}

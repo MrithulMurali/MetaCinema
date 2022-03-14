@@ -1,0 +1,35 @@
+.video-container {
+  width: 100vw;
+  height: 92vh;
+  text-align: center;
+  overflow: hidden;
+  background: black;
+}
+.landing-video {
+  margin-top: 20px;
+  width: 100vw;
+  height: 80vh;
+
+  object-fit: cover;
+  transform: scale(1.04);
+}
+.arrow-container {
+  color: white;
+  margin-top: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  animation: moveArrow 500ms 500ms infinite alternate;
+}
+.arrow-container:hover {
+  animation: none;
+  color: red;
+  transform: scale(130%);
+}
+@keyframes moveArrow {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
