@@ -1,0 +1,39 @@
+.box {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.box img {
+  width: 400px;
+  height: 500px;
+}
+.box h2 {
+  font-size: 2rem;
+}
+.box p {
+  font-size: 1.1rem;
+}
+.box h2 span {
+  color: red;
+  transform: scale(105%);
+  cursor: default;
+}
+.box {
+  width: 100vw;
+  padding: 20px;
+}
+.box-container {
+  margin: 100px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@keyframes imgFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

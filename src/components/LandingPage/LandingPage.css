@@ -1,9 +1,8 @@
 .video-container {
   width: 100vw;
-  height: 92vh;
+  height: 80vh;
   text-align: center;
   overflow: hidden;
-  background: black;
 }
 .landing-video {
   margin-top: 20px;
@@ -14,16 +13,79 @@
   transform: scale(1.04);
 }
 .arrow-container {
+  text-align: center;
+}
+.arrow {
   color: white;
   margin-top: 20px;
   font-size: 1.5rem;
   cursor: pointer;
   animation: moveArrow 500ms 500ms infinite alternate;
 }
-.arrow-container:hover {
+.arrow:hover {
   animation: none;
   color: red;
   transform: scale(130%);
+}
+.brief-container {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+section {
+  margin: 1.4rem 0;
+  font-family: "Open Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img1-container img {
+  height: 320px;
+  width: 600px;
+}
+.img2-container img {
+  height: 320px;
+  width: 600px;
+}
+.img1-container {
+  margin-left: 30px;
+}
+.img2-container {
+  margin-right: 50px;
+  margin-top: 50px;
+}
+.content-1 {
+  flex-basis: 40%;
+  margin-right: 40px;
+  color: white !important;
+}
+.content-2 {
+  flex-basis: 40%;
+  margin-left: 40px;
+  color: white !important;
+}
+.content-1 h3,
+.content-2 h3 {
+  font-size: 1.2rem;
+}
+.content-1 p,
+.content-2 p {
+  font-size: 1.1rem;
+}
+.now-showing {
+  margin-top: 20px;
+  padding: 10px 17px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, red, rgb(0, 81, 255));
+  border-image-slice: 1;
+  color: white;
+  cursor: pointer;
+}
+.now-showing:hover {
+  transform: scale(103%);
+}
+.now-showing:active {
+  transform: translateX(2px);
 }
 @keyframes moveArrow {
   0% {
