@@ -1,0 +1,38 @@
+/* .card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.card-wrapper:active,
+.card-wrapper:hover,
+.card-wrapper:focus {
+  outline: none;
+  border: none;
+}
+.card {
+  width: 100%;
+  height: 450px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: #000;
+  transition: 0.5s all ease;
+}
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */

@@ -2,11 +2,43 @@ import React from "react";
 import NavBar from "../NavBar/Navbar.js";
 import Footer from "../Footer/Footer.js";
 import "./Store.css";
+import Carousel from "../Carousel/Carousel.js";
+import NowShowing from "../NowShowing/NowShowing.js";
+import BookShow from "../BookShow/BookShow.js";
 export default function Store() {
   const NOW_SHOWING = [
     {
-      name: "Avengers Endgame",
-      desc: "After the events of Infinity War leaves half of the universe in ruins, the remaining Avengers must work together to recruit old and new allies and muster all of their remaining strength and resources to defeat the mad titan Thanos and bring their friends back from the brink of oblivion.",
+      img: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
+    },
+    {
+      id: 2,
+      img: "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg",
+    },
+    {
+      id: 3,
+      img: "https://m.media-amazon.com/images/M/MV5BYjVmMGU3ZjAtMDNmMy00ZmE2LWI0ODQtMzc2NDczOTdlZjYyXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg",
+    },
+  ];
+  const BOOK_SHOWS = [
+    {
+      id: 1,
+      img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
+      price: "1.23",
+      streamingAt: "6pm",
+    },
+    {
+      id: 2,
+
+      img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
+      price: "1.11",
+      streamingAt: "8pm",
+    },
+    {
+      id: 3,
+
+      img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
+      price: "1.01",
+      streamingAt: "11pm",
     },
   ];
   return (
@@ -34,6 +66,9 @@ export default function Store() {
           />
         </div>
       </div>
+      {/* <Carousel /> */}
+      <NowShowing movies={NOW_SHOWING} />
+      <BookShow movies={BOOK_SHOWS} />
       <Footer />
     </>
   );

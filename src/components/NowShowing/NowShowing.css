@@ -1,0 +1,18 @@
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slider-container:active {
+  cursor: grab;
+}
+.slider {
+  width: 60%;
+}
+
+/* .movies img {
+  width: 500px;
+  height: 600px;
+  margin-left: 40px;
+  object-fit: contain;
+} */
