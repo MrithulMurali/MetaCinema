@@ -23,21 +23,21 @@ export default function Store() {
     {
       id: 1,
       img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
-      price: "1.23",
+      price: 1.23,
       streamingAt: "6pm",
     },
     {
       id: 2,
 
       img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
-      price: "1.11",
+      price: 1.11,
       streamingAt: "8pm",
     },
     {
       id: 3,
 
       img: "https://m.media-amazon.com/images/M/MV5BN2FjNmEyNWMtYzM0ZS00NjIyLTg5YzYtYThlMGVjNzE1OGViXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg",
-      price: "1.01",
+      price: 1.01,
       streamingAt: "11pm",
     },
   ];

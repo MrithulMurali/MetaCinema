@@ -2,5 +2,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
+  width: 87.5%;
+  padding: 5px 10px;
+  color: black;
+  background: rgb(223, 223, 223);
+}
+.bookshow-container {
+  margin-left: 40px;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 40px 0px;
+}
+.bookshow-img {
+  width: 400px;
+  height: 600px;
+}
+.book-btn:active {
+  transform: scale(101%) translateX(1px);
 }

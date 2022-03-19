@@ -16,7 +16,7 @@ export default function Footer() {
         width: "100vw",
       }}
     >
-      Developed by 1Pixel &#169;
+      1Pixel &#169;
     </div>
   );
 }
