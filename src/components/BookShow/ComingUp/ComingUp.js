@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import "./ComingUp.css";
-export default function ComingUp({ img, streamingAt, price, modalActive }) {
+export default function ComingUp({
+  img,
+  streamingAt,
+  price,
+  modalActive,
+  value,
+  openModal,
+}) {
   const [hoverPrice, setHoverPrice] = useState(false);
 
   return (
@@ -38,7 +45,8 @@ export default function ComingUp({ img, streamingAt, price, modalActive }) {
                 border: "1px solid black",
               }}
               onClick={() => {
-                modalActive(true);
+                value(price);
+                openModal();
               }}
               onMouseEnter={() => setHoverPrice(true)}
               onMouseLeave={() => setHoverPrice(false)}

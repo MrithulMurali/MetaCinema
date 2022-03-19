@@ -4,8 +4,43 @@
   left: 0;
   height: 100vh;
   width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: saturate(110%) blur(5px);
+  background: rgba(85, 85, 85, 0.418);
+}
+.modal-store {
+  border-radius: 5px;
+  background: white;
+  color: black;
+  width: 60%;
+  height: 85%;
 }
 .modal-store img {
-  width: 400px;
-  height: 600px;
+  width: 300px;
+  height: 350px;
+  border-radius: 5px;
+}
+.btn-modal button {
+  cursor: pointer;
+  padding: 5px;
+  margin: 20px;
+}
+.choices p {
+  font-size: 1.1rem;
+  font-weight: lighter;
+}
+.choices {
+  cursor: pointer;
+}
+.choices:hover {
+  transform: scale(105%);
+}
+.confirmation-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
 }
