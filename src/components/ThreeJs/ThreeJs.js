@@ -273,15 +273,16 @@ function Cinema() {
     </>
   );
 }
-export default function Theatre() {
+export default function Theatre({ theme }) {
   // useEffect(() => void video.play(), [video]);
 
   return (
+    //Theatre canvas
     <Canvas color="black">
       {/* <fog attach="fog" args={["black", 1, 90]}></fog> */}
       <color attach="background" args={["black"]} />
       <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.05} />
-      <Stars count={1000} radius={70} fade={true} />
+      {theme.starryNight && <Stars count={1000} radius={70} fade={true} />}
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.5} />
       <Screen />
@@ -289,5 +290,6 @@ export default function Theatre() {
         <Cinema />
       </Suspense>
     </Canvas>
+    //driveInCanvas
   );
 }

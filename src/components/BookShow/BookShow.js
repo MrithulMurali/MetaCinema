@@ -2,8 +2,9 @@ import React from "react";
 import ComingUp from "./ComingUp/ComingUp";
 import { useState } from "react";
 import "./BookShow.css";
+import { useNavigate } from "react-router-dom";
 
-export default function BookShow({ movies }) {
+export default function BookShow({ movies, theme }) {
   const [value, setValue] = useState(null);
   const [modalActive, setModalActive] = useState(true);
   //False = Theatre  True = DriveIn
@@ -14,23 +15,45 @@ export default function BookShow({ movies }) {
   const [starryNight, setStarryNight] = useState(null);
   //Counter for payment modal
   const [pageCount, setPageCount] = useState(1);
+  // navigator
+  const navigate = useNavigate();
+
+  //Confirm payment to movie screen
+  const confirmPayment = () => {
+    //Web3 stuff
+    //Send props
+    theme({
+      themeChoice,
+      dayLightChoice,
+      starryNight,
+    });
+    setTimeout(() => {
+      navigate("../meta-cinema");
+    }, [1000]);
+  };
 
   const PaymentConfirmationScreen = (
     <div className="confirmation-container">
       <div className="confirmation">
         <div>
-          <h3>One last step from joining MetaFAM🎞</h3>
-          <h4>Confirm Payment</h4>
+          <h3 style={{ marginTop: "50px", fontSize: "2rem" }}>
+            One last step to the MetaFAM
+          </h3>
+          <h4 style={{ marginTop: "100px", fontSize: "1.2rem" }}>
+            Confirm Payment
+          </h4>
           <p>
             Are you sure you want to make a payment of {value}MATIC to
-            MetaCinema and book a show.
+            MetaCinema and book your seats.
           </p>
         </div>
       </div>
     </div>
   );
   const PaymentButton = (
-    <button style={{ padding: "5px", margin: "20px" }}>I confirm</button>
+    <button onClick={confirmPayment} className="confirm-btn-modal">
+      I confirm
+    </button>
   );
 
   return (
@@ -304,11 +327,19 @@ export default function BookShow({ movies }) {
               }}
             >
               {pageCount > 1 ? (
-                <button onClick={() => setPageCount((prev) => prev - 1)}>
+                <button
+                  className="prev-button-modal"
+                  onClick={() => setPageCount((prev) => prev - 1)}
+                >
                   Prev
                 </button>
               ) : (
-                <button onClick={() => setModalActive(false)}>Close</button>
+                <button
+                  className="close-btn-modal"
+                  onClick={() => setModalActive(false)}
+                >
+                  Close
+                </button>
               )}
 
               {pageCount === 3 && dayLightChoice && PaymentButton}

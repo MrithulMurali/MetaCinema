@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../NavBar/Navbar.js";
 import Footer from "../Footer/Footer.js";
 import "./Store.css";
 import Carousel from "../Carousel/Carousel.js";
 import NowShowing from "../NowShowing/NowShowing.js";
 import BookShow from "../BookShow/BookShow.js";
-export default function Store() {
+export default function Store({ theatreTheme }) {
   const NOW_SHOWING = [
     {
       img: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
@@ -68,7 +68,7 @@ export default function Store() {
       </div>
       {/* <Carousel /> */}
       <NowShowing movies={NOW_SHOWING} />
-      <BookShow movies={BOOK_SHOWS} />
+      <BookShow movies={BOOK_SHOWS} theme={theatreTheme} />
       <Footer />
     </>
   );

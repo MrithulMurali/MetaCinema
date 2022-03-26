@@ -15,7 +15,7 @@ export default function LandingPage() {
         <video
           className="landing-video"
           autoPlay={true}
-          preload={true}
+          preload="true"
           loop={true}
           muted={true}
           src={heroVideo}
@@ -29,7 +29,7 @@ export default function LandingPage() {
           offset={-70}
           duration={500}
         >
-          <i class="arrow fa-solid fa-circle-chevron-down"></i>
+          <i className="arrow fa-solid fa-circle-chevron-down"></i>
         </Smooth>
       </div>
       <div className="brief-container">

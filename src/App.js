@@ -6,20 +6,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [threeJsLoaded, setThreeJSLoaded] = useState(false);
+  const [theatreTheme, setTheatreTheme] = useState(null);
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path="/batman"
+          path="/meta-cinema"
           element={
             <div style={{ width: "100%", height: "100vh" }}>
-              <ThreeJs />
+              <ThreeJs theme={theatreTheme} />
             </div>
           }
         ></Route>
         //Landing pade and store components
         <Route index element={<LandingPage />} />
-        <Route path="store" element={<Store />} />
+        <Route
+          path="store"
+          element={<Store theatreTheme={setTheatreTheme} />}
+        />
       </Routes>
     </BrowserRouter>
   );
