@@ -5,7 +5,7 @@ import "./Store.css";
 import Carousel from "../Carousel/Carousel.js";
 import NowShowing from "../NowShowing/NowShowing.js";
 import BookShow from "../BookShow/BookShow.js";
-export default function Store({ theatreTheme }) {
+export default function Store({ theatreTheme, web3Api }) {
   const NOW_SHOWING = [
     {
       img: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg",
@@ -43,7 +43,7 @@ export default function Store({ theatreTheme }) {
   ];
   return (
     <>
-      <NavBar />
+      <NavBar web3Api={web3Api} />
       <div className="box-container">
         <div className="box">
           <div style={{ flexBasis: "50%" }}>

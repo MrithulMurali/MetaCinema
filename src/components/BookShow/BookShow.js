@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function BookShow({ movies, theme }) {
   const [value, setValue] = useState(null);
-  const [modalActive, setModalActive] = useState(true);
+  const [modalActive, setModalActive] = useState();
   //False = Theatre  True = DriveIn
   const [themeChoice, setThemeChoice] = useState(null);
   //False = Night True = Day
