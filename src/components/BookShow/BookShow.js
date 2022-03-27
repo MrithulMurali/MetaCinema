@@ -2,11 +2,13 @@ import React from "react";
 import ComingUp from "./ComingUp/ComingUp";
 import { useState } from "react";
 import "./BookShow.css";
+
 import { useNavigate } from "react-router-dom";
 
-export default function BookShow({ movies, theme }) {
-  const [value, setValue] = useState(null);
-  const [modalActive, setModalActive] = useState();
+export default function BookShow({ web3Api, movies, theme, account }) {
+  const { web3, contract } = web3Api;
+  const [moviedata, setMovieData] = useState(null);
+  const [modalActive, setModalActive] = useState(false);
   //False = Theatre  True = DriveIn
   const [themeChoice, setThemeChoice] = useState(null);
   //False = Night True = Day
@@ -17,10 +19,40 @@ export default function BookShow({ movies, theme }) {
   const [pageCount, setPageCount] = useState(1);
   // navigator
   const navigate = useNavigate();
-
   //Confirm payment to movie screen
-  const confirmPayment = () => {
+  const confirmPayment = async () => {
     //Web3 stuff
+
+    const hexShowId = web3.utils.utf8ToHex(moviedata.id);
+    const orderHash = web3.utils.soliditySha3(
+      { type: "bytes16", value: hexShowId },
+      { type: "address", value: account }
+    );
+    const value = web3.utils.toWei(String(moviedata.price));
+
+    const keyHash = web3.utils.sha3("devfolio-secret");
+    const proof = web3.utils.soliditySha3(
+      { type: "bytes32", value: keyHash },
+      { type: "bytes32", value: orderHash }
+    );
+    console.log(proof, value, hexShowId);
+
+    //Contract methods
+    try {
+      const contract_data = await contract;
+      const res = await contract_data.purchaseMovie(hexShowId, proof, {
+        from: account,
+        value,
+      });
+      alert("Transaction successful. Welcome to MetaFam.");
+      console.log(res);
+      window.location.reload();
+    } catch (error) {
+      alert("An error occured. Check console for details!");
+      console.error(error);
+    }
+  };
+  const redirectHandler = () => {
     //Send props
     theme({
       themeChoice,
@@ -31,28 +63,20 @@ export default function BookShow({ movies, theme }) {
       navigate("../meta-cinema");
     }, [1000]);
   };
-
   const PaymentConfirmationScreen = (
     <div className="confirmation-container">
       <div className="confirmation">
         <div>
-          <h3 style={{ marginTop: "50px", fontSize: "2rem" }}>
-            One last step to the MetaFAM
+          <h3 style={{ marginTop: "150px", fontSize: "1.5rem" }}>
+            Enter the verse!
           </h3>
-          <h4 style={{ marginTop: "100px", fontSize: "1.2rem" }}>
-            Confirm Payment
-          </h4>
-          <p>
-            Are you sure you want to make a payment of {value}MATIC to
-            MetaCinema and book your seats.
-          </p>
         </div>
       </div>
     </div>
   );
   const PaymentButton = (
-    <button onClick={confirmPayment} className="confirm-btn-modal">
-      I confirm
+    <button onClick={redirectHandler} className="redirect confirm-btn-modal">
+      Take me there!
     </button>
   );
 
@@ -81,19 +105,24 @@ export default function BookShow({ movies, theme }) {
           <div className="bookshow-container">
             {movies.map((movie) => (
               <ComingUp
+                web3Api={web3Api}
+                account={account}
                 key={movie.id}
+                id={movie.id}
                 img={movie.img}
-                streamingAt={movie.streamingAt}
                 price={movie.price}
-                value={(price) => setValue(price)}
+                moviedata={(data) => setMovieData(data)}
                 openModal={() => setModalActive(true)}
+                openPayment={() => {
+                  moviedata && confirmPayment();
+                }}
               />
             ))}
           </div>
         </div>
       </div>
 
-      {/* // Modal */}
+      {/* Modal */}
 
       {modalActive && (
         <div className="modal-store-bd">
@@ -326,7 +355,7 @@ export default function BookShow({ movies, theme }) {
                 padding: "10px",
               }}
             >
-              {pageCount > 1 ? (
+              {pageCount > 1 && pageCount < 3 ? (
                 <button
                   className="prev-button-modal"
                   onClick={() => setPageCount((prev) => prev - 1)}
@@ -336,7 +365,10 @@ export default function BookShow({ movies, theme }) {
               ) : (
                 <button
                   className="close-btn-modal"
-                  onClick={() => setModalActive(false)}
+                  onClick={() => {
+                    setPageCount(1);
+                    setModalActive(false);
+                  }}
                 >
                   Close
                 </button>

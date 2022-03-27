@@ -57,7 +57,7 @@ export default function NowShowing({ movies }) {
             borderTopRightRadius: "5px",
           }}
         >
-          Now Streaming
+          Now Showing
         </h4>
       </div>
       <div className="slider-container">

@@ -25,6 +25,15 @@ contract Store {
         setContractOwner(msg.sender);
     }
 
+    modifier onlyOwner() {
+        if (msg.sender != getContractOwner()) {
+            revert OnlyOwner();
+        }
+        _;
+    }
+
+    receive() external payable {}
+
     error OnlyOwner();
     error ShowAlreadyBought();
 
@@ -36,13 +45,6 @@ contract Store {
         owner = payable(newOwner);
     }
 
-    modifier onlyOwner() {
-        if (msg.sender != getContractOwner()) {
-            revert OnlyOwner();
-        }
-        _;
-    }
-
     function getContractOwner() public view returns (address) {
         return owner;
     }
@@ -52,9 +54,10 @@ contract Store {
     function purchaseMovie(bytes16 showId, bytes32 proof) external payable {
         bytes32 showHash = keccak256(abi.encodePacked(showId, msg.sender));
 
-        if (movieOwned(showHash)) {
-            revert ShowAlreadyBought();
-        }
+        // if (movieOwned(showHash)) {
+        //     revert ShowAlreadyBought();
+        // }
+        require(!movieOwned(showHash), "Show already owned!");
 
         uint256 id = totalOwnedShows++;
 
@@ -75,6 +78,12 @@ contract Store {
 
     //Check whether the show is already owned
     function movieOwned(bytes32 showHash) private view returns (bool) {
+        return bookedShows[showHash].owner == msg.sender;
+    }
+
+    //Checks show ownership
+    function checkOwnerShip(bytes16 showId) public view returns (bool) {
+        bytes32 showHash = keccak256(abi.encodePacked(showId, msg.sender));
         return bookedShows[showHash].owner == msg.sender;
     }
 }

@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ComingUp.css";
 export default function ComingUp({
+  web3Api,
+  account,
+  id,
   img,
-  streamingAt,
   price,
-  modalActive,
-  value,
+  moviedata,
   openModal,
+  openPayment,
 }) {
   const [hoverPrice, setHoverPrice] = useState(false);
+  const [showOwned, setShowOwned] = useState(false);
+  const { web3, contract } = web3Api;
 
+  useEffect(() => {
+    const checkOwned = async () => {
+      const contract_data = await contract;
+      const showHash = web3.utils.utf8ToHex(id);
+      console.log(showHash);
+      const isOwned = await contract_data.checkOwnerShip(showHash);
+      setShowOwned(isOwned);
+    };
+    contract && account && checkOwned();
+  }, [contract, account]);
   return (
     <>
       <div>
@@ -24,10 +38,7 @@ export default function ComingUp({
               justifyContent: "center",
             }}
           >
-            <h5>Streaming @</h5>
-            <h4>
-              <strong style={{ fontSize: "1.2rem" }}>{streamingAt}</strong>
-            </h4>
+            <h5>Streaming Now</h5>
           </div>
           <div
             style={{
@@ -36,23 +47,45 @@ export default function ComingUp({
               justifyContent: "space-between",
             }}
           >
-            <button
-              className="book-btn"
-              style={{
-                padding: "8px 6px",
-                cursor: "pointer",
-                background: "none",
-                border: "1px solid black",
-              }}
-              onClick={() => {
-                value(price);
-                openModal();
-              }}
-              onMouseEnter={() => setHoverPrice(true)}
-              onMouseLeave={() => setHoverPrice(false)}
-            >
-              {!hoverPrice ? <b>Book show</b> : <strong>{price} MATIC</strong>}
-            </button>
+            {!showOwned ? (
+              <button
+                className="book-btn"
+                style={{
+                  padding: "8px 6px",
+                  cursor: "pointer",
+                  background: "none",
+                  border: "1px solid black",
+                }}
+                onClick={() => {
+                  moviedata({ id, price });
+                  openPayment();
+                }}
+                onMouseEnter={() => setHoverPrice(true)}
+                onMouseLeave={() => setHoverPrice(false)}
+              >
+                {!hoverPrice ? (
+                  <b>Book show</b>
+                ) : (
+                  <strong>{price} MATIC</strong>
+                )}
+              </button>
+            ) : (
+              <button
+                className="book-btn"
+                style={{
+                  padding: "8px 20px",
+                  cursor: "pointer",
+                  background: "none",
+                  border: "1px solid black",
+                  fontWeight: "bold",
+                }}
+                onClick={() => {
+                  openModal();
+                }}
+              >
+                Play
+              </button>
+            )}
           </div>
         </div>
       </div>

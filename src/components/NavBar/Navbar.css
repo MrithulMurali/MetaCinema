@@ -52,3 +52,52 @@
 .nav-btn-container:active {
   transform: translateX(2px);
 }
+
+/* Add show modal */
+
+.modal-new-show {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: saturate(110%) blur(5px);
+  background: rgba(85, 85, 85, 0.418);
+}
+.modal-new-show-container {
+  width: 40%;
+  height: 60vh;
+  background: rgb(110, 98, 225);
+}
+.new-show-content h2 {
+  text-align: center;
+}
+.new-show-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 80px;
+}
+.new-show-input input {
+  padding: 5px;
+  margin: 10px;
+  width: 60%;
+  height: 30px;
+  color: rgb(110, 98, 225);
+}
+.new-show-btns {
+  margin-top: 40px;
+}
+.new-show-btns button {
+  padding: 10px 20px;
+  margin: 10px;
+  color: rgb(110, 98, 225);
+  border: none;
+}
+.new-show-btns button:hover {
+  transform: scale(102%);
+}

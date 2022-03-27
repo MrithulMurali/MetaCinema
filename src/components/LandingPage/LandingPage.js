@@ -7,10 +7,10 @@ import Navbar from "../NavBar/Navbar";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { Link as Smooth } from "react-scroll";
-export default function LandingPage({ web3Api }) {
+export default function LandingPage({ web3Api, account }) {
   return (
     <>
-      <Navbar web3Api={web3Api} />
+      <Navbar web3Api={web3Api} account={account} />
       <div className="video-container">
         <video
           className="landing-video"
