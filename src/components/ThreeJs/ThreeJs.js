@@ -1,11 +1,5 @@
 import { Canvas, useLoader } from "@react-three/fiber";
-import {
-  OrbitControls,
-  SpotLight,
-  Stars,
-  useFBX,
-  useGLTF,
-} from "@react-three/drei";
+import { OrbitControls, Stars } from "@react-three/drei";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import videojs from "video.js";
 import axios from "axios";
@@ -25,11 +19,14 @@ import tile1nor from "./resources/cinemaTheme/tiles/normal.png";
 import Curtain from "./resources/cinemaTheme/curtains/Curtain";
 import Lamp from "./resources/cinemaTheme/floodlight/Lamp";
 import Seats from "./resources/cinemaTheme/seats/Seats.js";
-function Screen() {
+import Car1 from "./resources/DriveInTheme/Car1/Car1";
+import Car2 from "./resources/DriveInTheme/Car2/Car2";
+import { useNavigate } from "react-router-dom";
+function Screen({ playback }) {
   const [video] = useState(() => {
     const vid = document.createElement("video");
     const source = document.createElement("source");
-    source.src = "https://cdn.livepeer.com/hls/e50dekpfmh072xab/index.m3u8";
+    source.src = `https://cdn.livepeer.com/hls/${playback}/index.m3u8`;
     vid.appendChild(source);
     vid.setAttribute("id", "gVideo");
 
@@ -39,6 +36,7 @@ function Screen() {
     <group position={[-3, 23, -50]}>
       <mesh
         onClick={() => {
+          console.log(playback);
           videojs(video).play();
         }}
       >
@@ -273,23 +271,60 @@ function Cinema() {
     </>
   );
 }
+// function DriveIn() {
+//   return (
+//     //Side walls
+//     <>
+//       <mesh position={[-2, -2, 5]} rotation={[-Math.PI / 2, 0, 0]}>
+//         <planeBufferGeometry args={[100, 115]}></planeBufferGeometry>
+//         <meshStandardMaterial color={"#70483c"} />
+//       </mesh>
+//       <Suspense fallback={null}>
+//         <Lamp position={[45, 0, 40]} rotation={[0, -Math.PI / 1.2, 0]} />
+//         <Lamp position={[45, 0, 10]} rotation={[0, -Math.PI / 1.2, 0]} />
+//         <Lamp position={[45, 0, -20]} rotation={[0, -Math.PI / 1.2, 0]} />
+//         <Lamp position={[-49, 0, 40]} rotation={[0, -Math.PI / 5, 0]} />
+//         <Lamp position={[-49, 0, 10]} rotation={[0, -Math.PI / 5, 0]} />
+//         <Lamp position={[-49, 0, -20]} rotation={[0, -Math.PI / 5, 0]} />
+//         <group rotation={[0, -Math.PI / 10, 0]}>
+//           <spotLight intensity={1.2} color={"blue"} position={[60, 5, 47]} />
+//         </group>
+//       </Suspense>
+//       <Suspense fallback={null}>
+//         <group>
+//           <Car1 />
+//         </group>
+//       </Suspense>
+//     </>
+//   );
+// }
 export default function Theatre({ theme }) {
-  // useEffect(() => void video.play(), [video]);
-
+  console.log(theme);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (theme === null) {
+      return navigate("/");
+    }
+  }, [theme]);
   return (
-    //Theatre canvas
-    <Canvas color="black">
-      {/* <fog attach="fog" args={["black", 1, 90]}></fog> */}
-      <color attach="background" args={["black"]} />
-      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.05} />
-      {theme.starryNight && <Stars count={1000} radius={70} fade={true} />}
-      <ambientLight intensity={0.5} />
-      <directionalLight intensity={0.5} />
-      <Screen />
-      <Suspense fallback={null}>
-        <Cinema />
-      </Suspense>
+    <Canvas>
+      {theme && (
+        <>
+          <color
+            attach="background"
+            args={[theme.dayLightChoice ? "#F4E99B" : "black"]}
+          />
+          <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.05} />
+          {theme.starryNight && <Stars count={1000} radius={70} fade={true} />}
+          <ambientLight intensity={0.5} />
+          <directionalLight intensity={0.5} />
+          <Screen playback={theme.playback} />
+          <Suspense fallback={null}>
+            <Cinema />
+          </Suspense>
+        </>
+      )}
+      )
     </Canvas>
-    //driveInCanvas
   );
 }

@@ -6,6 +6,8 @@ export default function ComingUp({
   id,
   img,
   price,
+  streamData,
+  streamId,
   moviedata,
   openModal,
   openPayment,
@@ -80,6 +82,8 @@ export default function ComingUp({
                   fontWeight: "bold",
                 }}
                 onClick={() => {
+                  console.log(streamId);
+                  streamData(streamId);
                   openModal();
                 }}
               >

@@ -1,6 +1,7 @@
 import React from "react";
 import ComingUp from "./ComingUp/ComingUp";
 import { useState } from "react";
+import axios from "axios";
 import "./BookShow.css";
 
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,9 @@ export default function BookShow({ web3Api, movies, theme, account }) {
   // navigator
   const navigate = useNavigate();
   //Confirm payment to movie screen
+  //Playback stream
+  const [streamId, setStreamId] = useState(null);
+  const [playback, setPlayback] = useState(null);
   const confirmPayment = async () => {
     //Web3 stuff
 
@@ -52,16 +56,33 @@ export default function BookShow({ web3Api, movies, theme, account }) {
       console.error(error);
     }
   };
-  const redirectHandler = () => {
-    //Send props
-    theme({
-      themeChoice,
-      dayLightChoice,
-      starryNight,
-    });
-    setTimeout(() => {
-      navigate("../meta-cinema");
-    }, [1000]);
+  const redirectHandler = async () => {
+    //Fetch playback ID from livepeer
+    try {
+      const res = await axios.get(
+        `https://livepeer.com/api/stream/${streamId}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer e28cbad2-d9bd-4494-9636-8e4701ec4e74`,
+          },
+        }
+      );
+      if (res) {
+        console.log(res.data.playbackId);
+        //Send props
+        theme({
+          playback: res.data.playbackId,
+          themeChoice,
+          dayLightChoice,
+          starryNight,
+        });
+        navigate("../meta-cinema");
+      }
+    } catch (err) {
+      alert("Error occured! check console");
+      console.error(err.message);
+    }
   };
   const PaymentConfirmationScreen = (
     <div className="confirmation-container">
@@ -109,8 +130,10 @@ export default function BookShow({ web3Api, movies, theme, account }) {
                 account={account}
                 key={movie.id}
                 id={movie.id}
+                streamId={movie.streamId}
                 img={movie.img}
                 price={movie.price}
+                streamData={(id) => setStreamId(id)}
                 moviedata={(data) => setMovieData(data)}
                 openModal={() => setModalActive(true)}
                 openPayment={() => {
